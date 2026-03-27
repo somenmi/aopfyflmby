@@ -1,0 +1,32 @@
+# Visual Studio
+.vs/
+Debug/
+Release/
+x64/
+Win32/
+*.user
+*.suo
+*.vcxproj.user
+
+# Build artifacts
+*.exe
+*.dll
+*.obj
+*.pdb
+*.ilk
+*.lib
+
+# Inno Setup
+*.dat
+*.log
+*.setup
+
+# Temporary files
+*.tmp
+*.temp
+
+# macOS
+.DS_Store
+
+# Screenshots
+!docs/screenshots/
