@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>aopfyflmby - О приложении / About / 关于</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: black;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        /* MAIN CENTERED CONTAINER */
+        .all {
+            max-width: 1280px;
+            width: 100%;
+            margin: 0 auto;
+            background: none;
+            border: none;
+            padding: 2rem 2rem;
+            transition: all 0.2s ease;
+        }
+
+        /* TWO-COLUMN FLEX LAYOUT: LEFT SIDEBAR + RIGHT CONTENT */
+        .two-columns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            align-items: flex-start;
+        }
+
+        /* LEFT COLUMN — фиксированная ширина, но адаптивна */
+        .left-sidebar {
+            flex: 1.2;
+            min-width: 220px;
+            max-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        /* RIGHT COLUMN — шире, занимает остальное место */
+        .right-content {
+            flex: 3;
+            min-width: 260px;
+        }
+
+        /* LOGO: слева, без центрирования внутри блока */
+        /* LOGO: центрирование внутри колонки */
+        .logo {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 225px;
+            height: 225px;
+            display: block;
+            filter: drop-shadow(7px 7px 12px rgba(0, 0, 0, 0.2));
+            transition: opacity 8s ease;
+        }
+
+        /* Ховер для логотипа — меняем изображение */
+        .logo .default-logo {
+            display: block;
+        }
+
+        .logo .hover-logo {
+            position: absolute;
+            opacity: 0;
+            transition: opacity 8s ease;
+            width: 225px;
+            height: 225px;
+        }
+
+        .logo:hover .default-logo {
+            opacity: 0;
+        }
+
+        .logo:hover .hover-logo {
+            opacity: 1;
+        }
+
+        /* Заголовок h1 — под логотипом, выравнивание влево */
+        h1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: rgb(238, 238, 238);
+            letter-spacing: -0.3px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            margin-top: 0.25rem;
+            line-height: 1.2;
+        }
+
+        /* tagline под h1 */
+        .tagline {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.7rem;
+            line-height: 0.1;
+            padding-right: 0.2rem;
+        }
+
+        .tagline span {
+            color: rgb(192, 131, 81);
+            margin-left: 4px;
+            margin-right: 0.5px;
+            font-weight: 600;
+        }
+
+        /* Блок выбора языка — флаги по центру колонки */
+        .lang-switch {
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            background: none;
+            margin-top: 0.75rem;
+            padding: 0.65rem 1rem;
+            width: 100%;
+            backdrop-filter: blur(4px);
+            align-self: center;
+        }
+
+        .lang-btn {
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            scale: 80%;
+            opacity: 0.3;
+            display: inline-block;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .lang-btn:hover {
+            transform: scale(1.3);
+            opacity: 0.95;
+        }
+
+        .lang-btn.active {
+            opacity: 1;
+            scale: 100%;
+            transform: scale(1.05);
+            filter: drop-shadow(0 0px 16px rgba(107, 213, 255, 0.4));
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .lang-btn img {
+            width: 38px;
+            height: 28px;
+            display: block;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+
+        /* Стили для контента (правой колонки) */
+        .content {
+            color: #eef2ff;
+            line-height: 1.45;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .story {
+            background: linear-gradient(90deg, rgba(10, 10, 20, 0.3), rgba(0,0,0,0));
+            backdrop-filter: blur(8px);
+            border-radius: 1.5rem;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            padding: 1.8rem 2rem;
+            margin-bottom: 0.5rem;
+            border-left: 5px double rgba(255, 184, 107, 0.65);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s;
+            min-height: 431px;
+        }
+
+        .story h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
+            color: #ffdfb3;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+        }
+
+        .story p {
+            margin-bottom: 1rem;
+            text-align: justify;
+            color: rgba(245, 245, 255, 0.92);
+            font-weight: 450;
+        }
+
+        .story p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* footer внутри правой колонки */
+        .footer {
+            margin-top: 1.2rem;
+            text-align: center;
+            font-size: 0.85rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(87, 127, 160, 0.13);
+        }
+
+        .footer a {
+            color: #ffb86b;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+            color: #ffd966;
+        }
+
+        .footer p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Адаптивность: при маленьких экранах колонки становятся вертикальными */
+        @media (max-width: 780px) {
+            .all {
+                padding: 1.5rem;
+            }
+
+            .two-columns {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .left-sidebar {
+                max-width: 100%;
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 1rem;
+            }
+
+            .logo img,
+            .logo .default-logo,
+            .logo .hover-logo {
+                width: 110px;
+                height: 110px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .lang-switch {
+                margin-top: 0;
+                width: auto;
+                justify-content: center;
+            }
+
+            .tagline {
+                font-size: 0.8rem;
+            }
+
+            .story {
+                padding: 1.3rem;
+            }
+
+            .story h2 {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .left-sidebar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .lang-switch {
+                width: 100%;
+                justify-content: center;
+                align-self: center;
+            }
+
+            .story-zh h2 {
+                letter-spacing: 1.8px;
+                line-height: 0.5rem;
+            }
+        }
+
+        /* тонкая настройка для читаемости */
+        .story p:first-of-type {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="all">
+        <div class="two-columns">
+            <!-- ЛЕВАЯ КОЛОНКА: логотип, h1, tagline, выбор языка (флаги) -->
+            <div class="left-sidebar">
+                <div class="logo">
+                    <img class="default-logo" src="https://github.com/somenmi/images/raw/main/aopfyflmby/logo.png"
+                        alt="aopfyflmby_logo">
+                    <img class="hover-logo" src="https://github.com/somenmi/images/raw/main/aopfyflmby/logo_about.png"
+                        alt="aopfyflmby_logo_about">
+                </div>
+                <h1>aopfyflmby</h1>
+                <div class="tagline"><span>A</span>n <span>o</span>bjective <span>p</span>layer <span>f</span>or <span>y</span>our</div>
+                <div class="tagline"><span>f</span>avorite <span>l</span>ocal <span>m</span>usic <span>b</span>y <span>Y</span>alkee</div>
+                <div class="lang-switch">
+                    <div class="lang-btn" data-lang="ru">
+                        <img src="https://flagicons.lipis.dev/flags/4x3/ru.svg" alt="Russian">
+                    </div>
+                    <div class="lang-btn" data-lang="en">
+                        <img src="https://flagicons.lipis.dev/flags/4x3/gb.svg" alt="English">
+                    </div>
+                    <div class="lang-btn" data-lang="zh">
+                        <img src="https://flagicons.lipis.dev/flags/4x3/cn.svg" alt="Chinese">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ПРАВАЯ КОЛОНКА: контент (story) и футер -->
+            <div class="right-content">
+                <div class="content">
+                    <div id="story-ru" class="story" style="display: none;">
+                        <h2>💭 Как я пришёл к созданию этой программы</h2>
+                        <p>Примерно 12-13 лет назад я наткнулся на музыкальный плеер, который работал исключительно из
+                            системного трея - никакого лишнего окна, только иконка и удобное контекстное меню. Он был
+                            простым, лёгким и делал ровно то, что нужно: воспроизводил музыку, не отвлекая ни на что
+                            лишнее.</p>
+                        <p>Шли годы, программа потерялась, а интернет за это время разросся настолько, что найти её
+                            снова стало практически невозможно.</p>
+                        <p>Погружаясь в IT, я решил воссоздать тот самый плеер. Тем более, что 5-6 лет назад я собрал
+                            внушительный архив музыки - всё, что накопил за жизнь. Но перебирая существующие решения
+                            (AIMP, Winamp и другие), я каждый раз сталкивался с одним и тем же: они громоздкие,
+                            перегружены функциями, которые мне не нужны.</p>
+                        <p>Итог вы видите на этой странице. Просто, удобно и в трее.</p>
+                        <p>Спасибо, что заглянули! c:</p>
+                    </div>
+
+                    <div id="story-en" class="story" style="display: none; line-height: 1.645rem;">
+                        <h2>💭 How I came to create this program</h2>
+                        <p>About 12-13 years ago, I stumbled upon a music player that ran exclusively from the system
+                            tray - no extra windows, just an icon and a convenient context menu. It was simple,
+                            lightweight, and did exactly what it needed to: play music without any distractions.</p>
+                        <p>Years passed, the program was lost, and the internet grew so much that finding it again
+                            became practically impossible.</p>
+                        <p>As I delved deeper into IT, I decided to recreate that very player. Especially since 5-6
+                            years ago, I had gathered an impressive music archive - everything I've collected over my
+                            life. But when I tried existing solutions (AIMP, Winamp, and others), I kept running into
+                            the same issue: they were bulky, overloaded with features I didn't need.</p>
+                        <p>The result is what you see on this page. Simple, convenient, and in the tray.</p>
+                        <p>Thanks for stopping by! c:</p>
+                    </div>
+
+                    <div id="story-zh" class="story" style="display: none; letter-spacing: 2px; line-height: 2rem;">
+                        <h2 style="letter-spacing: 1.5px;">💭 我如何想到创建这个程序</h2>
+                        <p>大约 12-13 年前，我偶然发现了一个完全运行在系统托盘中的音乐播放器——没有多余的窗口，只有一个图标和一个方便的右键菜单。它简单、轻巧，只做一件事：播放音乐，没有任何干扰。</p>
+                        <p>时光流逝，这个程序早已消失，而互联网变得如此庞大，几乎不可能再找到它。</p>
+                        <p>随着我对 IT 的深入了解，我决定重制那个播放器。尤其是在 5-6 年前，我收集了一个庞大的音乐档案——那是我一生积累的所有音乐。但当我尝试现有的播放器（如 AIMP、Winamp
+                            等）时，总是遇到同样的问题：它们太臃肿，功能太多，根本用不上。</p>
+                        <p>结果就是你现在看到的这个页面。简单、方便，就在托盘里。</p>
+                        <p>感谢你的光临！😊</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div id="footer-ru" style="display: none;">
+                <p>© 2026 Yalkee (somenmi) · <a href="https://github.com/somenmi/aopfyflmby" target="_blank">GitHub</a>
+                    · <a href="https://github.com/somenmi/aopfyflmby/blob/main/LICENSE" target="_blank">MIT License</a>
+                </p>
+                <p style="margin-top: 8px; font-size: 0.75rem;">🎧 Просто, удобно, в трее</p>
+            </div>
+            <div id="footer-en" style="display: none;">
+                <p>© 2026 Yalkee (somenmi) · <a href="https://github.com/somenmi/aopfyflmby" target="_blank">GitHub</a>
+                    · <a href="https://github.com/somenmi/aopfyflmby/blob/main/LICENSE" target="_blank">MIT License</a>
+                </p>
+                <p style="margin-top: 8px; font-size: 0.75rem;">🎧 Simple, convenient, in the tray</p>
+            </div>
+            <div id="footer-zh" style="display: none;">
+                <p>© 2026 Yalkee (somenmi) · <a href="https://github.com/somenmi/aopfyflmby" target="_blank">GitHub</a>
+                    · <a href="https://github.com/somenmi/aopfyflmby/blob/main/LICENSE" target="_blank">MIT License</a>
+                </p>
+                <p style="margin-top: 8px; font-size: 0.75rem; letter-spacing: 1.3px;">🎧 简单，方便，就在托盘里</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== ЯЗЫКОВАЯ ЛОГИКА ==========
+        const stories = {
+            ru: document.getElementById('story-ru'),
+            en: document.getElementById('story-en'),
+            zh: document.getElementById('story-zh')
+        };
+
+        const footers = {
+            ru: document.getElementById('footer-ru'),
+            en: document.getElementById('footer-en'),
+            zh: document.getElementById('footer-zh')
+        };
+
+        const buttons = document.querySelectorAll('.lang-btn');
+
+        function setLanguage(lang) {
+            // скрыть все стори и футеры
+            Object.keys(stories).forEach(key => {
+                if (stories[key]) stories[key].style.display = 'none';
+                if (footers[key]) footers[key].style.display = 'none';
+            });
+            if (stories[lang]) stories[lang].style.display = 'block';
+            if (footers[lang]) footers[lang].style.display = 'block';
+
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+            localStorage.setItem('aopfyflmby_lang', lang);
+        }
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.getAttribute('data-lang');
+                setLanguage(lang);
+            });
+        });
+
+        const savedLang = localStorage.getItem('aopfyflmby_lang');
+        const browserLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+
+        if (savedLang && stories[savedLang]) {
+            setLanguage(savedLang);
+        } else if (browserLang.startsWith('ru')) {
+            setLanguage('ru');
+        } else if (browserLang.startsWith('zh')) {
+            setLanguage('zh');
+        } else {
+            setLanguage('en');
+        }
+
+        // ========== ДИНАМИЧЕСКИЙ ФОН: МАЯТНИК-ЛАМПА + ЧАСТИЦЫ (полностью сохранен с оригинальным эффектом, но адаптирован под любой размер) ==========
+        (function dynamicBackground() {
+            // Параметры размытия и текстур (можно менять, оставляем как было, но с возможностью адаптации)
+            const blurRadius = 5;
+            const textureOpacity = 0.08;
+
+            const canvas = document.createElement('canvas');
+            canvas.style.position = 'fixed';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            canvas.style.display = 'block';
+            canvas.style.zIndex = '-1';
+            document.body.insertBefore(canvas, document.body.firstChild);
+
+            const ctx = canvas.getContext('2d');
+            let width = window.innerWidth;
+            let height = window.innerHeight;
+
+            let pivotX, pivotY, ropeLength, maxAngle;
+            let animationStartTime = null;
+            const angularSpeed = 0.7;
+            let currentAngle = 0;
+
+            function updateAdaptiveParams() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+                pivotX = width / 2;
+                pivotY = -height * 2.8;
+                ropeLength = height * 3;
+                maxAngle = Math.PI / 3.8;
+            }
+
+            function updateLampPosition(timestamp) {
+                const normalizedTime = timestamp * angularSpeed;
+                currentAngle = Math.sin(normalizedTime) * maxAngle;
+                const lampX = pivotX + Math.sin(currentAngle) * ropeLength;
+                const lampY = pivotY + Math.cos(currentAngle) * ropeLength;
+                return { x: lampX, y: lampY };
+            }
+
+            function drawWithBlur(drawFunction, ...args) {
+                if (blurRadius <= 0) {
+                    drawFunction(...args);
+                } else {
+                    const offscreen = document.createElement('canvas');
+                    offscreen.width = width;
+                    offscreen.height = height;
+                    const offCtx = offscreen.getContext('2d');
+                    drawFunction(...args, offCtx);
+                    ctx.filter = `blur(${blurRadius}px)`;
+                    ctx.drawImage(offscreen, 0, 0);
+                    ctx.filter = 'none';
+                }
+            }
+
+            function drawGlow(x, y) {
+                const maxRadius = Math.max(width, height) * 1.3;
+                const gradient = ctx.createRadialGradient(x, y, 0, x, y, maxRadius);
+                gradient.addColorStop(0, `rgba(125, 196, 255, 0.95)`);
+                gradient.addColorStop(0.08, `rgba(125, 196, 255, 0.82)`);
+                gradient.addColorStop(0.18, `rgba(110, 170, 230, 0.65)`);
+                gradient.addColorStop(0.32, `rgba(90, 145, 205, 0.48)`);
+                gradient.addColorStop(0.48, `rgba(70, 120, 180, 0.32)`);
+                gradient.addColorStop(0.65, `rgba(50, 95, 150, 0.20)`);
+                gradient.addColorStop(0.8, `rgba(30, 65, 110, 0.10)`);
+                gradient.addColorStop(1, 'rgba(15, 30, 55, 0)');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, width, height);
+
+                const intenseGlow = ctx.createRadialGradient(x, y, 0, x, y, maxRadius * 0.6);
+                intenseGlow.addColorStop(0, `rgba(150, 210, 255, 0.55)`);
+                intenseGlow.addColorStop(0.25, `rgba(130, 185, 240, 0.35)`);
+                intenseGlow.addColorStop(0.55, `rgba(100, 150, 205, 0.18)`);
+                intenseGlow.addColorStop(1, 'rgba(70, 105, 155, 0)');
+                ctx.fillStyle = intenseGlow;
+                ctx.fillRect(0, 0, width, height);
+            }
+
+            function drawLampContent(x, y, context = ctx) {
+                context.save();
+                context.translate(x, y);
+                context.beginPath();
+                context.arc(0, 0, 22, 0, Math.PI * 2);
+                context.fillStyle = `rgba(80, 140, 200, ${0.88 * textureOpacity})`;
+                context.fill();
+                context.beginPath();
+                context.arc(0, 0, 12, 0, Math.PI * 2);
+                context.fillStyle = `rgba(140, 200, 255, ${0.96 * textureOpacity})`;
+                context.fill();
+                context.beginPath();
+                context.ellipse(0, -3, 24, 18, 0, 0, Math.PI * 2);
+                context.fillStyle = `rgba(100, 160, 220, ${0.32 * textureOpacity})`;
+                context.fill();
+                context.strokeStyle = `rgba(110, 170, 235, ${0.6 * textureOpacity})`;
+                context.lineWidth = 1.2;
+                context.stroke();
+                context.beginPath();
+                context.ellipse(0, -14, 10, 5, 0, 0, Math.PI * 2);
+                context.fillStyle = `rgba(70, 115, 165, ${0.82 * textureOpacity})`;
+                context.fill();
+                context.restore();
+            }
+
+            function drawLamp(x, y) {
+                drawWithBlur(drawLampContent, x, y);
+            }
+
+            function drawWireContent(fromX, fromY, toX, toY, context = ctx) {
+                context.beginPath();
+                context.moveTo(fromX, fromY);
+                context.lineTo(toX, toY);
+                context.strokeStyle = `rgba(50, 95, 145, ${0.85 * textureOpacity})`;
+                context.lineWidth = 2.8;
+                context.stroke();
+                context.beginPath();
+                context.moveTo(fromX, fromY);
+                context.lineTo(toX, toY);
+                context.strokeStyle = `rgba(70, 115, 165, ${0.65 * textureOpacity})`;
+                context.lineWidth = 1.2;
+                context.stroke();
+            }
+
+            function drawWire(fromX, fromY, toX, toY) {
+                drawWithBlur(drawWireContent, fromX, fromY, toX, toY);
+            }
+
+            function drawPivot(x, y) {
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, Math.PI * 2);
+                ctx.fillStyle = '#3a6a9a';
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(x, y, 2, 0, Math.PI * 2);
+                ctx.fillStyle = '#5a8aba';
+                ctx.fill();
+            }
+
+            const particles = [];
+            const particleCount = 110;
+
+            function initParticles() {
+                particles.length = 0;
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        vx: (Math.random() - 0.5) * 0.05,
+                        vy: (Math.random() - 0.5) * 0.04,
+                        size: 0.8 + Math.random() * 1.8,
+                        alpha: 0.1 + Math.random() * 0.3,
+                        twinkleSpeed: 0.3 + Math.random() * 1.2
+                    });
+                }
+            }
+
+            function updateParticles() {
+                for (let p of particles) {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < -30) p.x = width + 30;
+                    if (p.x > width + 30) p.x = -30;
+                    if (p.y < -30) p.y = height + 30;
+                    if (p.y > height + 30) p.y = -30;
+                    p.alpha = 0.12 + Math.sin(Date.now() * 0.002 * p.twinkleSpeed) * 0.12;
+                }
+            }
+
+            function drawParticles() {
+                for (let p of particles) {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(170, 200, 240, ${p.alpha * 0.55})`;
+                    ctx.fill();
+                }
+            }
+
+            function animate(currentTime) {
+                if (!animationStartTime) {
+                    animationStartTime = currentTime;
+                    requestAnimationFrame(animate);
+                    return;
+                }
+                const timestamp = (currentTime - animationStartTime) / 1000;
+                const lampPos = updateLampPosition(timestamp);
+                updateParticles();
+                ctx.clearRect(0, 0, width, height);
+                ctx.fillStyle = '#000000';
+                ctx.fillRect(0, 0, width, height);
+                drawGlow(lampPos.x, lampPos.y);
+                drawWire(pivotX, pivotY, lampPos.x, lampPos.y);
+                drawLamp(lampPos.x, lampPos.y);
+                drawPivot(pivotX, pivotY);
+                drawParticles();
+                requestAnimationFrame(animate);
+            }
+
+            function handleResize() {
+                updateAdaptiveParams();
+                initParticles();
+            }
+
+            function initBackground() {
+                updateAdaptiveParams();
+                initParticles();
+                requestAnimationFrame(animate);
+                window.addEventListener('resize', handleResize);
+            }
+            initBackground();
+        })();
+    </script>
+</body>
+
+</html>

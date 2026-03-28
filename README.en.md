@@ -30,6 +30,22 @@
 
 </div>
 
+---
+
+### 💭 How I came to create this program
+
+About 12–13 years ago, I stumbled upon a music player that ran exclusively from the system tray — no extra windows, just an icon and a convenient context menu. It was simple, lightweight, and did exactly what it needed to: play music without any distractions.
+
+Years passed, the program was lost, and the internet grew so much that finding it again became practically impossible.
+
+As I delved deeper into IT, I decided to recreate that very player. Especially since 5–6 years ago, I had gathered an impressive music archive — everything I’ve collected over my life. But when I tried existing solutions (AIMP, Winamp, and others), I kept running into the same issue: they were bulky, overloaded with features I didn’t need.
+
+The result is what you see on this page. Simple, convenient, and in the tray.
+
+Thanks for stopping by! c:
+
+---
+
 ## 🎼 About
 
 **aopfyflmby** (abbr. from: <u>An objective player for your favorite local music by Yalkee</u>) - is a minimalist music player that runs from the system tray. No extra windows - just an icon in the tray and a context menu. Load a music folder and control playback via hotkeys or the context menu.
